@@ -1,1 +1,16 @@
+ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
 
+.downloadWrapper,
+li,
+.downloadHeadings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  list-style: none;
+  border: 1px black solid;
+}
