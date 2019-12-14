@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function YourLocation() {
   const [fileData, setfileData] = useState();
+  const [selectedCount, setSelectedCount] = useState(0);
 
   const setData = () => {
     // eslint-disable-next-line global-require
@@ -14,7 +15,19 @@ export default function YourLocation() {
     setfileData(fileDataUpdated);
   };
 
+  const countSelected = (num, e) => {
+    let selectedUpdated = 0;
+    if (num === 1) selectedUpdated = selectedCount;
+    if (e.target.checked === true) {
+      selectedUpdated += num;
+    } else if (num === 1) {
+      selectedUpdated -= num;
+    }
+    setSelectedCount(selectedUpdated);
+  };
+
   const handleCheck = (e) => {
+    countSelected(1, e);
     const fileDataUpdated = fileData.map((object) => {
       const objectUpdate = { ...object };
       if (objectUpdate.name === e.target.name) {
@@ -27,6 +40,7 @@ export default function YourLocation() {
   };
 
   const handleAllCheck = (e) => {
+    countSelected(fileData.length, e);
     const fileDataUpdated = fileData.map((object) => {
       const objectUpdate = { ...object };
       objectUpdate.isChecked = e.target.checked;
@@ -44,7 +58,7 @@ export default function YourLocation() {
     <div className="fileWrapper">
       <div className="downloadWrapper">
         <input type="checkbox" onChange={handleAllCheck} />
-        <p>Selected</p>
+        <p>Selected {selectedCount}</p>
         <p>Download Selected</p>
       </div>
       <div className="download">
