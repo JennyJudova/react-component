@@ -15,6 +15,19 @@ export default function YourLocation() {
     setfileData(fileDataUpdated);
   };
 
+  // const statusCheck = (e) => {
+  //   fileData.map((object) => {
+  //     if (object.name === e.target.name) {
+  //       if (object.status === 'scheduled') {
+  //         alert('Hello! I am an alert box!');
+  //         console.log(object.status);
+  //         return true;
+  //       }
+  //     }
+  //     return true;
+  //   });
+  // };
+
   const countSelected = (num, e) => {
     let selectedUpdated = 0;
     if (num === 1) selectedUpdated = selectedCount;
@@ -60,7 +73,11 @@ export default function YourLocation() {
     <div className="fileWrapper">
       <div className="downloadWrapper">
         <input type="checkbox" onChange={handleAllCheck} id="checkAll" />
-        <p>Selected {selectedCount}</p>
+        {selectedCount !== 0 ? (
+          <p>Selected {selectedCount}</p>
+        ) : (
+          <p>None Selected</p>
+        )}
         <p>Download Selected</p>
       </div>
       <div className="download">
@@ -94,3 +111,6 @@ export default function YourLocation() {
     </div>
   );
 }
+
+// {!selectedCount && <p>None Selected</p>}
+// {selectedCount && <p>Selected {selectedCount}</p>}
