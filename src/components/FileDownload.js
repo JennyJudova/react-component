@@ -23,6 +23,8 @@ export default function YourLocation() {
     } else if (num === 1) {
       selectedUpdated -= num;
     }
+    if (selectedUpdated > 0 && selectedUpdated < fileData.length)
+      document.getElementById('checkAll').indeterminate = true;
     setSelectedCount(selectedUpdated);
   };
 
@@ -57,7 +59,7 @@ export default function YourLocation() {
   return (
     <div className="fileWrapper">
       <div className="downloadWrapper">
-        <input type="checkbox" onChange={handleAllCheck} />
+        <input type="checkbox" onChange={handleAllCheck} id="checkAll" />
         <p>Selected {selectedCount}</p>
         <p>Download Selected</p>
       </div>
@@ -74,8 +76,8 @@ export default function YourLocation() {
               return (
                 <li key={file.name}>
                   <input
-                    name={file.name}
                     type="checkbox"
+                    name={file.name}
                     checked={file.isChecked}
                     onChange={handleCheck}
                   />
