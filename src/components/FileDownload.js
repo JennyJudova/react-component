@@ -91,7 +91,7 @@ export default function YourLocation() {
           <ul>
             {fileData.map((file) => {
               return (
-                <li key={file.name}>
+                <li key={file.name} className={file.isChecked.toString()}>
                   <input
                     type="checkbox"
                     name={file.name}
