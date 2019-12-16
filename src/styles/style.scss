@@ -1,21 +1,22 @@
 $darkgrey: gainsboro;
 $lighgrey: whitesmoke;
-$green: green;
-$red: red;
+$green: yellowgreen;
+$red: crimson;
 $fontfize: 15px;
+$border: 0.5px $darkgrey solid;
 
 @mixin placement {
   display: flex;
   flex-direction: row;
   list-style: none;
-  border: 0.5px black solid;
+  border: $border;
   padding: 0 20px;
 }
 
 @mixin downloadwrapperfont {
   font-size: 25px;
   font-weight: 400;
-  margin: 15px;
+  margin: 15px 25px 15px 15px;
 }
 
 @mixin downloadheadingsfont {
@@ -25,7 +26,12 @@ $fontfize: 15px;
 }
 
 .fileWrapper {
-  border: 0.5px black solid;
+  border: $border;
+  border-radius: 1px;
+  max-width: fit-content;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 5px 5px 5px $darkgrey;
 }
 
 .downloadWrapper,
@@ -36,6 +42,9 @@ li,
 
 .downloadHeadings {
   padding: 0 60px;
+  .path {
+    width: 520px;
+  }
   h3 {
     @include downloadheadingsfont();
     width: 150px;
@@ -74,7 +83,7 @@ ul {
     margin: 15px 10px;
   }
   .path {
-    width: 450px;
+    width: 500px;
   }
   .available {
     height: 20px;
@@ -117,11 +126,17 @@ li:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1;
-  border: 1px solid $darkgrey;
+  border: $border;
   .scheduled {
     color: $red;
     width: auto;
     margin: 15px 0;
+  }
+  button {
+    padding: 15px;
+    font-size: $fontfize;
+    background-color: white;
+    text-transform: capitalize;
+    border-radius: 1px;
   }
 }

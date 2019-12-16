@@ -102,8 +102,9 @@ export default function YourLocation() {
                   .map((object) => {
                     return (
                       <p key={object.name}>
-                        Device {object.device} with path {object.path} will be
-                        downloaded
+                        Device: {object.device} <br />
+                        Path: {object.path} <br />
+                        Is ready to download.
                       </p>
                     );
                   })}
@@ -148,7 +149,7 @@ export default function YourLocation() {
         <div className="downloadHeadings">
           <h3>Name</h3>
           <h3>Device</h3>
-          <h3>Path</h3>
+          <h3 className="path">Path</h3>
           <h3>Status</h3>
         </div>
         {fileData && (
