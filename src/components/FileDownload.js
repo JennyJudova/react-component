@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 export default function YourLocation() {
   const [fileData, setfileData] = useState();
   const [selectedCount, setSelectedCount] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [scheduled, setScheduled] = useState(0);
 
   const setData = () => {
     // eslint-disable-next-line global-require
@@ -15,18 +17,27 @@ export default function YourLocation() {
     setfileData(fileDataUpdated);
   };
 
-  // const statusCheck = (e) => {
-  //   fileData.map((object) => {
-  //     if (object.name === e.target.name) {
-  //       if (object.status === 'scheduled') {
-  //         alert('Hello! I am an alert box!');
-  //         console.log(object.status);
-  //         return true;
-  //       }
-  //     }
-  //     return true;
-  //   });
-  // };
+  const handleDownload = () => {
+    console.log('download pressed');
+    if (isModalOpen === false) {
+      setIsModalOpen(true);
+    } else setIsModalOpen(false);
+
+    const scheduledUpdated = [];
+
+    const fileDataUpdated = fileData.map((object) => {
+      const objectUpdate = { ...object };
+      if (object.status === 'scheduled' && object.isChecked === true) {
+        scheduledUpdated.push(object.device);
+        objectUpdate.isChecked = false;
+      }
+      console.log(scheduledUpdated);
+      setScheduled(scheduledUpdated);
+      return objectUpdate;
+    });
+    console.log(fileDataUpdated);
+    setfileData(fileDataUpdated);
+  };
 
   const countSelected = (num, e) => {
     let selectedUpdated = 0;
@@ -36,8 +47,13 @@ export default function YourLocation() {
     } else if (num === 1) {
       selectedUpdated -= num;
     }
-    if (selectedUpdated > 0 && selectedUpdated < fileData.length)
+    console.log('count selected', selectedUpdated);
+
+    if (selectedUpdated === 0) {
+      document.getElementById('checkAll').checked = false;
+    } else if (selectedUpdated > 0 && selectedUpdated < fileData.length) {
       document.getElementById('checkAll').indeterminate = true;
+    }
     setSelectedCount(selectedUpdated);
   };
 
@@ -71,37 +87,88 @@ export default function YourLocation() {
 
   return (
     <div className="fileWrapper">
+      {isModalOpen && (
+        <div className="modalWrapper">
+          <div className="modal">
+            {selectedCount === 0 ? (
+              <p>You have to select files to download.</p>
+            ) : (
+              <div>
+                {fileData
+                  .filter(
+                    (object) =>
+                      object.isChecked === true && object.status === 'available'
+                  )
+                  .map((object) => {
+                    return (
+                      <p key={object.name}>
+                        Device {object.device} with path {object.path} will be
+                        downloaded
+                      </p>
+                    );
+                  })}
+                {scheduled && (
+                  <div>
+                    {scheduled.map((device) => {
+                      return (
+                        <p className="scheduled" key={device}>
+                          Device {device} will not be downloaded because it is
+                          already Scheduled.
+                        </p>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+            <button type="button" onClick={() => setIsModalOpen(false)}>
+              close alert
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="downloadWrapper">
         <input type="checkbox" onChange={handleAllCheck} id="checkAll" />
         {selectedCount !== 0 ? (
-          <p>Selected {selectedCount}</p>
+          <h2>Selected {selectedCount}</h2>
         ) : (
-          <p>None Selected</p>
+          <h2>None Selected</h2>
         )}
-        <p>Download Selected</p>
+        <button type="button" onClick={handleDownload}>
+          <img
+            src="./assets/download.svg"
+            alt="download arrow"
+            className="svg"
+          />{' '}
+          Download Selected{' '}
+        </button>
       </div>
       <div className="download">
         <div className="downloadHeadings">
-          <p>Name</p>
-          <p>Device</p>
-          <p>Path</p>
-          <p>Status</p>
+          <h3>Name</h3>
+          <h3>Device</h3>
+          <h3>Path</h3>
+          <h3>Status</h3>
         </div>
         {fileData && (
           <ul>
-            {fileData.map((file) => {
+            {fileData.map((object) => {
               return (
-                <li key={file.name} className={file.isChecked.toString()}>
+                <li key={object.name} className={object.isChecked.toString()}>
                   <input
                     type="checkbox"
-                    name={file.name}
-                    checked={file.isChecked}
+                    name={object.name}
+                    checked={object.isChecked}
                     onChange={handleCheck}
                   />
-                  <p>{file.name}</p>
-                  <p>{file.device}</p>
-                  <p>{file.path}</p>
-                  <p>{file.status}</p>
+                  <p>{object.name}</p>
+                  <p>{object.device}</p>
+                  <p className="path">{object.path}</p>
+                  <div>
+                    <p className={object.status} />
+                    <p> {object.status}</p>
+                  </div>
                 </li>
               );
             })}
@@ -111,6 +178,3 @@ export default function YourLocation() {
     </div>
   );
 }
-
-// {!selectedCount && <p>None Selected</p>}
-// {selectedCount && <p>Selected {selectedCount}</p>}

@@ -1,28 +1,127 @@
-$selectedcolor: gainsboro;
-$hovercolor: whitesmoke;
+$darkgrey: gainsboro;
+$lighgrey: whitesmoke;
+$green: green;
+$red: red;
+$fontfize: 15px;
+
+@mixin placement {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  border: 0.5px black solid;
+  padding: 0 20px;
+}
+
+@mixin downloadwrapperfont {
+  font-size: 25px;
+  font-weight: 400;
+  margin: 15px;
+}
+
+@mixin downloadheadingsfont {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 15px 10px;
+}
+
+.fileWrapper {
+  border: 0.5px black solid;
+}
+
+.downloadWrapper,
+li,
+.downloadHeadings {
+  @include placement();
+}
+
+.downloadHeadings {
+  padding: 0 60px;
+  h3 {
+    @include downloadheadingsfont();
+    width: 150px;
+  }
+}
+
+.downloadWrapper {
+  align-items: center;
+  h2 {
+    @include downloadwrapperfont();
+  }
+  button {
+    border: none;
+    padding: 0;
+    height: auto;
+    @include downloadwrapperfont();
+  }
+  .svg {
+    height: 15px;
+  }
+}
+
+input {
+  margin-right: 20px;
+  align-self: center;
+}
 
 ul {
   display: flex;
   flex-direction: column;
   padding: 0;
   margin: 0;
+  p {
+    width: 150px;
+    font-size: $fontfize;
+    margin: 15px 10px;
+  }
+  .path {
+    width: 450px;
+  }
+  .available {
+    height: 20px;
+    width: 20px;
+    background-color: $green;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 15px 0 15px 10px;
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    text-transform: capitalize;
+  }
 }
 
-.downloadWrapper,
-li,
-.downloadHeadings {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  list-style: none;
-  border: 1px black solid;
-  padding: 0 20px;
+.scheduled {
+  width: 20px;
+  margin: 15px 0 15px 10px;
 }
 
 li:hover {
-  background-color: $hovercolor;
+  background-color: $lighgrey;
 }
 
 .true {
-  background-color: $selectedcolor;
+  background-color: $darkgrey;
+}
+
+.modalWrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal {
+  background: $lighgrey;
+  border-radius: 1px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  border: 1px solid $darkgrey;
+  .scheduled {
+    color: $red;
+    width: auto;
+    margin: 15px 0;
+  }
 }
