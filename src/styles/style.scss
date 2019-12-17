@@ -2,7 +2,8 @@ $darkgrey: gainsboro;
 $lighgrey: whitesmoke;
 $green: yellowgreen;
 $red: crimson;
-$fontfize: 15px;
+$font: 'Alegreya Sans', sans-serif;
+$fontsize: 15px;
 $border: 0.5px $darkgrey solid;
 
 @mixin placement {
@@ -17,12 +18,14 @@ $border: 0.5px $darkgrey solid;
   font-size: 25px;
   font-weight: 400;
   margin: 15px 25px 15px 15px;
+  font-family: $font;
 }
 
 @mixin downloadheadingsfont {
   font-size: 20px;
   font-weight: 400;
   margin: 15px 10px;
+  font-family: $font;
 }
 
 .fileWrapper {
@@ -79,8 +82,9 @@ ul {
   margin: 0;
   p {
     width: 150px;
-    font-size: $fontfize;
     margin: 15px 10px;
+    font-size: $fontsize;
+    font-family: $font;
   }
   .path {
     width: 500px;
@@ -134,7 +138,7 @@ li:hover {
   }
   button {
     padding: 15px;
-    font-size: $fontfize;
+    font-size: $fontsize;
     background-color: white;
     text-transform: capitalize;
     border-radius: 1px;

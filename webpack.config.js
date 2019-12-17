@@ -59,6 +59,5 @@ module.exports = {
       inject: 'body'
     }),
     new CopyWebpackPlugin([{ from: './src/assets', to: 'assets' }])
-    //new webpack.EnvironmentPlugin(['TOKEN_ACCESS_KEY'])
   ]
 };
