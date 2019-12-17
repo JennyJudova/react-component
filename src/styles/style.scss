@@ -28,6 +28,10 @@ $border: 0.5px $darkgrey solid;
   font-family: $font;
 }
 
+h1 {
+  font-family: $font;
+}
+
 .fileWrapper {
   border: $border;
   border-radius: 1px;
@@ -142,5 +146,8 @@ li:hover {
     background-color: white;
     text-transform: capitalize;
     border-radius: 1px;
+  }
+  p {
+    font-family: $font;
   }
 }
